@@ -67,7 +67,7 @@ Item* HashTable::createItem(std::string title1, int price1,bool forSale1,std::st
     newItem->location=location1;
     newItem->price=price1;
     newItem->isForSale=forSale1;
-
+    newItem->visited=false;
     insertItem(newItem);
     return newItem;
 }
@@ -87,38 +87,45 @@ int HashTable::hashSum(std::string x, int s)
     sum = sum % s;
     return sum;
 }
+
+int HashTable::hashIntSum(int x, int s)
+{
+    int sum=x;
+    if(sum < 10000)
+    {
+       sum=sum / 1000;
+    }
+    else{
+        sum=9;
+    }
+
+    return sum;
+}
 /*
 void HashTable::insertItem(Item* nItem)
 Takes a pointer to the item to be inserted.
 Compares that value's title to other titles in the table.
 It then inserts the pointer into the appropriate slot.
 */
-void HashTable::insertItem(Item* nItem)
+Item* HashTable::insertItem(Item* nItem)
 {
-
     int arrPos=hashSum(nItem->title,10);
-
-    //std::cout<<in_title<<":" <<arrPos<<std::endl;
 
     if(ItemArray[arrPos].empty())
     {
-        //std::cout<<newItem.title<<":"<<arrPos<<":"<<"0"<<std::endl;
        ItemArray[arrPos].push_back(nItem);
 
     }
-    /*
+
    else if(ItemArray[arrPos][0]->title >= nItem->title)
     {
-        //std::cout<<newItem.title<<":"<<arrPos<<":"<<"0"<<" else" <<std::endl;
         ItemArray[arrPos].insert(ItemArray[arrPos].begin(),nItem);
-
     }
     else if(nItem->title > ItemArray[arrPos][ItemArray[arrPos].size()-1]->title )
             {
-                //std::cout<<newItem.title<<":"<<arrPos<<":"<<ItemArray[arrPos].size()<<" else" <<std::endl;
                 ItemArray[arrPos].push_back(nItem);
             }
-            */
+
 
     else
     {
@@ -131,8 +138,43 @@ void HashTable::insertItem(Item* nItem)
                 }
             }
     }
+    return nItem;
+}
+/*
+Works similarly to insertItem.
+However it uses the price to determine location in the hashTable.
 
+*/
+void HashTable::insertPrice(Item* nItem)
+{
+   int arrPos=hashIntSum(nItem->price,10);
 
+    if(ItemArray[arrPos].empty())
+    {
+       ItemArray[arrPos].push_back(nItem);
+    }
+/*
+   else if(ItemArray[arrPos][0]->price>= nItem->price)
+    {
+        ItemArray[arrPos].insert(ItemArray[arrPos].begin(),nItem);
+    }
+    else if(nItem->price > ItemArray[arrPos][ItemArray[arrPos].size()-1]->price )
+            {
+                ItemArray[arrPos].push_back(nItem);
+            }
+*/
+    else
+    {
+            for(int i=0;i< ItemArray[arrPos].size();i++)
+            {
+                if(nItem->price <= ItemArray[arrPos][i]->price || i == ItemArray[arrPos].size()-1)
+                {
+                     ItemArray[arrPos].insert(ItemArray[arrPos].begin()+i,nItem);
+                     break;
+                }
+            }
+    }
+    //return nItem;
 }
 
 /*
@@ -142,6 +184,7 @@ Follows the hash table and prints out the contents in alphabetical order.
 */
 void HashTable::printInventory()
 {
+    int totalNodes=0;
     bool isArrayEmpty =true;
     for(int i=0;i<arrSize;i++)
     {
@@ -156,6 +199,7 @@ void HashTable::printInventory()
             for(int j=0;j<ItemArray[i].size();j++)
             {
                 std::cout<<ItemArray[i][j]->title<< ":"<<ItemArray[i][j]->price/*<<":"<<j*/<<std::endl;
+                totalNodes++;
             }
         }
     }
@@ -163,6 +207,7 @@ void HashTable::printInventory()
     {
         std::cout<<"empty"<<std::endl;
     }
+    std::cout<<"Total Items: "<<totalNodes<<std::endl;
 }
 
 void HashTable::deleteItem(std::string in_title)
@@ -198,4 +243,83 @@ Item* HashTable::findItem(std::string in_title)
         std::cout<<"not found"<<std::endl;
     }
     return target;
+}
+/*
+void sortName()
+This function takes in no values.
+It is a fairly inefficient. algorithm, having multiple nested for loops.
+Starts by visiting each node in the hash table, and sets "visited" equal to false.
+Then in runs through each node again. If the item has not been visited, then temp is set to that node.
+The element of the vector is then deleted, and temp is re-inserted into the table. This avoids duplicates.
+*/
+
+void HashTable::sortName()
+{
+    //Set visited equal to zero.
+    for(int i=0; i<10;i++)
+    {
+        if (!ItemArray[i].empty())
+        {
+            for(int j=0; j< ItemArray[i].size();j++)
+            {
+                ItemArray[i][j]->visited =false;
+            }
+        }
+    }
+//Visit each node once, create temp and delete old pointer.
+//Insert temp into the table.
+//
+     for(int i=0; i<10;i++)
+    {
+        if (!ItemArray[i].empty())
+        {
+            for(int j=0; j< ItemArray[i].size();j++)
+            {
+                if(ItemArray[i][j]->visited==false)
+                {
+                    ItemArray[i][j]->visited=true;
+                    Item* temp=ItemArray[i][j];
+                    ItemArray[i].erase(ItemArray[i].begin()+j);
+                    j=0;
+                    insertItem(temp);
+                }
+            }
+        }
+    }
+
+}
+
+void HashTable::sortPrice()
+{
+        //Set visited equal to zero.
+    for(int i=0; i<10;i++)
+    {
+        if (!ItemArray[i].empty())
+        {
+            for(int j=0; j< ItemArray[i].size();j++)
+            {
+                ItemArray[i][j]->visited =false;
+            }
+        }
+    }
+//Visit each node once, create temp and delete old pointer.
+//Insert temp into the table.
+//
+     for(int i=0; i<10;i++)
+    {
+        if (!ItemArray[i].empty())
+        {
+            for(int j=0; j< ItemArray[i].size();j++)
+            {
+                if(ItemArray[i][j]->visited==false)
+                {
+                    ItemArray[i][j]->visited=true;
+                    Item* temp=ItemArray[i][j];
+                    ItemArray[i].erase(ItemArray[i].begin()+j);
+                    j=0;
+                    insertPrice(temp);
+                }
+            }
+        }
+    }
 }

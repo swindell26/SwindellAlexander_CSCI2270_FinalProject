@@ -8,6 +8,7 @@ struct Item{
     int price;
     bool isForSale;
     std::string location;
+    bool visited;
 };
 
 class HashTable
@@ -16,13 +17,18 @@ class HashTable
         HashTable(int);
         ~HashTable();
         Item* createItem(std::string title, int,bool,std::string location);
-        void insertItem(Item*);
+        Item* insertItem(Item*);
         Item* findItem(std::string in_title);
         void deleteItem(std::string in_title);
         void printInventory();
         int hashSum(std::string, int);
-        void restructureTable(int);
+       // void restructureTable(int);
         bool parseFile(char*);
+        //Sorting Functions
+        void sortName();
+        void sortPrice();
+        void insertPrice(Item*);
+        int hashIntSum(int, int);
     protected:
     private:
         Item *hashTable;

@@ -31,10 +31,34 @@ int main(int argc,char* argv[])
         cout<<"-----Welcome to Alex's List---"<<endl;
         cout<<"-----Menu Options:"<<endl;
         cout<<"1. Display Contents"<<endl;
+        cout<<"2. Resort Table"<<endl;
+        cout<<"3. Make Posting"<<endl;
+        cout<<"4. Delete POsting"<<endl;
+        cout<<"5. Quit"<<endl;
         cin>>userInput;
         if (userInput =="1")
         {
             table.printInventory();
+        }
+        else if(userInput == "2")
+        {
+            cout<<" What parameter would you like to sort by?"<<endl;
+            cout<<"----1.Name (default)"<<endl;
+            cout<<"----2.Price"<<endl;
+            cout<<"----3.Location"<<endl;
+            cin>>userInput;
+            if(userInput=="1")
+            {
+                table.sortName();
+            }
+            else if(userInput=="2")
+                    {
+                        table.sortPrice();
+                    }
+            else if(userInput =="3")
+            {
+
+            }
         }
 
     }
