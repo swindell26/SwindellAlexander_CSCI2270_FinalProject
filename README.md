@@ -19,7 +19,11 @@ The user can also add an entry maually, or delete and entry maunually.
 
 DEPENDENCIES:
 C++ Libraries used in this program:
-
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include <vector>
+Uses C++ 11.
 
 SYSTEM REQUIREMENTS:
 There are no specific system requirements to run this program, other than being able to compile and run a c++ program.
@@ -28,7 +32,8 @@ Uses
 NO ADDITIONAL CONTRIBUTERS
 
 OPEN ISSUES/BUGS:
-Currently the Add/Delete function are being developed.
 The location resort is not complete.
 The display contents formatting needs editing.
+The .txt file and read-in function need to be updated with "locations".
+Current read-in location is "none".
 

@@ -19,7 +19,7 @@ class HashTable
         Item* createItem(std::string title, int,bool,std::string location);
         Item* insertItem(Item*);
         Item* findItem(std::string in_title);
-        void deleteItem(std::string in_title);
+        void deleteItem(std::string in_title, int price, bool forSale);
         void printInventory();
         int hashSum(std::string, int);
        // void restructureTable(int);

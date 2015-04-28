@@ -40,7 +40,7 @@ bool HashTable::parseFile(char* name)
                 }
                 std::string title =contents[0];
                 bool forSale;
-                if(contents[1]=="for sale")
+                if(contents[1]==" for sale")
                     forSale=true;
                 else
                     forSale=false;
@@ -88,6 +88,12 @@ int HashTable::hashSum(std::string x, int s)
     return sum;
 }
 
+/*
+Creates a hash value for an integer.
+Divides that integer by 1000, to create the correct value.
+
+
+*/
 int HashTable::hashIntSum(int x, int s)
 {
     int sum=x;
@@ -198,7 +204,16 @@ void HashTable::printInventory()
         {
             for(int j=0;j<ItemArray[i].size();j++)
             {
-                std::cout<<ItemArray[i][j]->title<< ":"<<ItemArray[i][j]->price/*<<":"<<j*/<<std::endl;
+
+                if(ItemArray[i][j]->isForSale)
+                {std::cout<<"FOR SALE: ";}
+                else
+                {
+                    std::cout<<"WANTED: ";
+                }
+
+                std::cout<<ItemArray[i][j]->title;
+                std::cout<<"   Price: "<<ItemArray[i][j]->price <<" Location: "<<ItemArray[i][j]->location<<std::endl;
                 totalNodes++;
             }
         }
@@ -210,12 +225,13 @@ void HashTable::printInventory()
     std::cout<<"Total Items: "<<totalNodes<<std::endl;
 }
 
-void HashTable::deleteItem(std::string in_title)
+void HashTable::deleteItem(std::string in_title, int in_price, bool forSale)
 {
+    sortName();
    int arrPos=hashSum(in_title,arrSize);
    for(int i=0; i<ItemArray[arrPos].size();i++)
    {
-       if(ItemArray[arrPos][i]->title==in_title)
+       if(ItemArray[arrPos][i]->title==in_title && ItemArray[arrPos][i]->price == in_price && ItemArray[arrPos][i]->isForSale == forSale )
             ItemArray[arrPos].erase(ItemArray[arrPos].begin()+i);
    }
 }

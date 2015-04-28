@@ -31,9 +31,9 @@ int main(int argc,char* argv[])
         cout<<"-----Welcome to Alex's List---"<<endl;
         cout<<"-----Menu Options:"<<endl;
         cout<<"1. Display Contents"<<endl;
-        cout<<"2. Resort Table"<<endl;
+        cout<<"2. Search Table"<<endl;
         cout<<"3. Make Posting"<<endl;
-        cout<<"4. Delete POsting"<<endl;
+        cout<<"4. Delete Posting"<<endl;
         cout<<"5. Quit"<<endl;
         cin>>userInput;
         if (userInput =="1")
@@ -45,7 +45,7 @@ int main(int argc,char* argv[])
             cout<<" What parameter would you like to sort by?"<<endl;
             cout<<"----1.Name (default)"<<endl;
             cout<<"----2.Price"<<endl;
-            cout<<"----3.Location"<<endl;
+            //cout<<"----3.Location"<<endl;
             cin>>userInput;
             if(userInput=="1")
             {
@@ -59,6 +59,61 @@ int main(int argc,char* argv[])
             {
 
             }
+        }
+        else if(userInput=="3")
+        {
+            cout<<"Please enter the name of the item: ";
+            cin>>userInput;
+            cout<<endl;
+            string name=userInput;
+
+            cout<<"Please enter the price of the item: ";
+            cin>>userInput;
+            cout<<endl;
+            int price=stoi(userInput);
+
+            cout<<"Is the item (1) for sale? or (2) wanted? ";
+            cin>>userInput;
+            cout<<endl;
+
+            bool isForSale;
+            if(userInput=="1")
+                isForSale=true;
+            else
+                isForSale=false;
+
+            cout<<"Where is the item located?";
+            cin>>userInput;
+            cout<<endl;
+            string location =userInput;
+
+            table.sortName();
+            table.createItem(name,price,isForSale,location);
+            cout<<"Item Created"<<endl;
+        }
+        else if(userInput=="4")
+        {
+            cout<<"Please enter the name of the item: ";
+            cin>>userInput;
+            cout<<endl;
+            string name=userInput;
+
+            cout<<"Please enter the price of the item: ";
+            cin>>userInput;
+            cout<<endl;
+            int price=stoi(userInput);
+
+            cout<<"Was the item (1) for sale? or (2) wanted? ";
+            cin>>userInput;
+            cout<<endl;
+
+            bool isForSale;
+            if(userInput=="1")
+                isForSale=true;
+            else
+                isForSale=false;
+            table.deleteItem(name,price,isForSale);
+            cout<<"Item Deleted"<<endl;
         }
 
     }
