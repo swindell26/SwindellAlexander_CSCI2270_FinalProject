@@ -1,3 +1,9 @@
+/*
+Created by Alexander Swindell April 2015
+alexander.swindell@colorado.edu
+For CSCI2270 final project
+
+*/
 #include "HashTable.h"
 #include <vector>
 #include <fstream>
@@ -156,7 +162,7 @@ void HashTable::insertLocation(Item* nItem)
        ItemArray[arrPos].push_back(nItem);
 
     }
-
+/*
    else if(ItemArray[arrPos][0]->location >= nItem->location)
     {
         ItemArray[arrPos].insert(ItemArray[arrPos].begin(),nItem);
@@ -166,7 +172,7 @@ void HashTable::insertLocation(Item* nItem)
                 ItemArray[arrPos].push_back(nItem);
             }
 
-
+*/
     else
     {
             for(int i=0;i< ItemArray[arrPos].size();i++)
@@ -296,10 +302,10 @@ Item* HashTable::findItem(std::string in_title)
 /*
 void sortName()
 This function takes in no values.
-It is a fairly inefficient. algorithm, having multiple nested for loops.
+It is a fairly inefficient algorithm, having multiple nested for loops.
 Starts by visiting each node in the hash table, and sets "visited" equal to false.
 Then in runs through each node again. If the item has not been visited, then temp is set to that node.
-The element of the vector is then deleted, and temp is re-inserted into the table. This avoids duplicates.
+The element of the vector is then deleted, and temp is re-inserted into the table(by title). This avoids duplicates.
 */
 
 void HashTable::sortName()
@@ -337,6 +343,13 @@ void HashTable::sortName()
     }
 
 }
+/*
+void sortLocation();
+Starts by visiting each node in the hash table, and sets "visited" equal to false.
+Then in runs through each node again. If the item has not been visited, then temp is set to that node.
+The element of the vector is then deleted, and temp is re-inserted into the table(by location). This avoids duplicates.
+
+*/
 void HashTable::sortLocation()
 {
         //Set visited equal to zero.
@@ -371,6 +384,14 @@ void HashTable::sortLocation()
         }
     }
 }
+
+/*
+void sortPrice();
+Starts by visiting each node in the hash table, and sets "visited" equal to false.
+Then in runs through each node again. If the item has not been visited, then temp is set to that node.
+The element of the vector is then deleted, and temp is re-inserted into the table(by price. This avoids duplicates.
+
+*/
 
 void HashTable::sortPrice()
 {

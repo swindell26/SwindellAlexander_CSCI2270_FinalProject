@@ -1,3 +1,9 @@
+/*
+Created by Alexander Swindell April 2015
+alexander.swindell@colorado.edu
+For CSCI2270 final project
+
+*/
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 

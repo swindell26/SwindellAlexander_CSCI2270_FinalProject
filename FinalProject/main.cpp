@@ -1,3 +1,9 @@
+/*
+Created by Alexander Swindell April 2015
+alexander.swindell@colorado.edu
+For CSCI2270 final project
+
+*/
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -58,7 +64,7 @@ int main(int argc,char* argv[])
             else if(userInput =="3")
             {
                 table.sortLocation();
-                table.sortLocation();
+                table.sortLocation();//There is a bug in the code, that leaves two items unsorted, unless called twice.
             }
         }
         else if(userInput=="3")
