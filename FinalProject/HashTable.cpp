@@ -45,7 +45,8 @@ bool HashTable::parseFile(char* name)
                 else
                     forSale=false;
                 int price =stoi(contents[2]);
-                createItem(title,price,forSale,"none");
+                std::string location=contents[3];
+                createItem(title,price,forSale,location);
             }
         }
         else
@@ -145,6 +146,38 @@ Item* HashTable::insertItem(Item* nItem)
             }
     }
     return nItem;
+}
+void HashTable::insertLocation(Item* nItem)
+{
+    int arrPos=hashSum(nItem->location,10);
+
+    if(ItemArray[arrPos].empty())
+    {
+       ItemArray[arrPos].push_back(nItem);
+
+    }
+
+   else if(ItemArray[arrPos][0]->location >= nItem->location)
+    {
+        ItemArray[arrPos].insert(ItemArray[arrPos].begin(),nItem);
+    }
+    else if(nItem->location > ItemArray[arrPos][ItemArray[arrPos].size()-1]->location )
+            {
+                ItemArray[arrPos].push_back(nItem);
+            }
+
+
+    else
+    {
+            for(int i=0;i< ItemArray[arrPos].size();i++)
+            {
+                if(nItem->location <= ItemArray[arrPos][i]->location || i == ItemArray[arrPos].size()-1)
+                {
+                     ItemArray[arrPos].insert(ItemArray[arrPos].begin()+i,nItem);
+                     break;
+                }
+            }
+    }
 }
 /*
 Works similarly to insertItem.
@@ -303,6 +336,40 @@ void HashTable::sortName()
         }
     }
 
+}
+void HashTable::sortLocation()
+{
+        //Set visited equal to zero.
+    for(int i=0; i<10;i++)
+    {
+        if (!ItemArray[i].empty())
+        {
+            for(int j=0; j< ItemArray[i].size();j++)
+            {
+                ItemArray[i][j]->visited =false;
+            }
+        }
+    }
+//Visit each node once, create temp and delete old pointer.
+//Insert temp into the table.
+//
+     for(int i=0; i<10;i++)
+    {
+        if (!ItemArray[i].empty())
+        {
+            for(int j=0; j< ItemArray[i].size();j++)
+            {
+                if(ItemArray[i][j]->visited==false)
+                {
+                    ItemArray[i][j]->visited=true;
+                    Item* temp=ItemArray[i][j];
+                    ItemArray[i].erase(ItemArray[i].begin()+j);
+                    j=0;
+                    insertLocation(temp);
+                }
+            }
+        }
+    }
 }
 
 void HashTable::sortPrice()

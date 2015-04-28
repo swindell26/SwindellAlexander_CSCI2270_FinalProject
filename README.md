@@ -32,8 +32,11 @@ Uses
 NO ADDITIONAL CONTRIBUTERS
 
 OPEN ISSUES/BUGS:
-The location resort is not complete.
+Would like do have a more detailed search function:
+	Have a max or min price
+	Only display items from certain cities
+	Only display for sale or wanted items
+	etc.
 The display contents formatting needs editing.
-The .txt file and read-in function need to be updated with "locations".
-Current read-in location is "none".
+
 

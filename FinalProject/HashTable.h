@@ -29,6 +29,8 @@ class HashTable
         void sortPrice();
         void insertPrice(Item*);
         int hashIntSum(int, int);
+        void insertLocation(Item*);
+        void sortLocation();
     protected:
     private:
         Item *hashTable;

@@ -31,7 +31,7 @@ int main(int argc,char* argv[])
         cout<<"-----Welcome to Alex's List---"<<endl;
         cout<<"-----Menu Options:"<<endl;
         cout<<"1. Display Contents"<<endl;
-        cout<<"2. Search Table"<<endl;
+        cout<<"2. Resort Table"<<endl;
         cout<<"3. Make Posting"<<endl;
         cout<<"4. Delete Posting"<<endl;
         cout<<"5. Quit"<<endl;
@@ -45,7 +45,7 @@ int main(int argc,char* argv[])
             cout<<" What parameter would you like to sort by?"<<endl;
             cout<<"----1.Name (default)"<<endl;
             cout<<"----2.Price"<<endl;
-            //cout<<"----3.Location"<<endl;
+            cout<<"----3.Location"<<endl;
             cin>>userInput;
             if(userInput=="1")
             {
@@ -57,7 +57,8 @@ int main(int argc,char* argv[])
                     }
             else if(userInput =="3")
             {
-
+                table.sortLocation();
+                table.sortLocation();
             }
         }
         else if(userInput=="3")
