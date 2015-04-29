@@ -245,14 +245,14 @@ void HashTable::printInventory()
             {
 
                 if(ItemArray[i][j]->isForSale)
-                {std::cout<<"FOR SALE: ";}
+                {std::cout<<"FOR SALE:";}
                 else
                 {
-                    std::cout<<"WANTED: ";
+                    std::cout<<"WANTED:  ";
                 }
 
-                std::cout<<ItemArray[i][j]->title;
-                std::cout<<"   Price: "<<ItemArray[i][j]->price <<" Location: "<<ItemArray[i][j]->location<<std::endl;
+                std::cout<<std::setw(15) << ItemArray[i][j]->title;
+                std::cout<<std::setw(10)<< std::right<< "Price:"<<std::setw(5)<<std::right<<ItemArray[i][j]->price <<std::setw(10)<<std::right<<"Location:"<<std::setw(20)<<std::right<<ItemArray[i][j]->location<<std::endl;
                 totalNodes++;
             }
         }
