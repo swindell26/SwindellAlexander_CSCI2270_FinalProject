@@ -9,6 +9,7 @@ For CSCI2270 final project
 #include <fstream>
 #include <vector>
 #include "HashTable.h"
+#include <ctype.h>
 using namespace std;
 
 int main(int argc,char* argv[])
@@ -77,7 +78,26 @@ int main(int argc,char* argv[])
             cout<<"Please enter the price of the item: ";
             cin>>userInput;
             cout<<endl;
-            int price=stoi(userInput);
+            int price=0;
+            std::string::const_iterator it = userInput.begin();
+            while (it != userInput.end() && std::isdigit(*it)) ++it;
+            bool isNum=!userInput.empty() && it == userInput.end();
+            if(!isNum)
+            {
+                 while(!isNum)
+                 {
+                    cout<<"Please enter the price of the item as a number: ";
+                    cin>>userInput;
+                    cout<<endl;
+
+                    std::string::const_iterator it = userInput.begin();
+                    while (it != userInput.end() && std::isdigit(*it)) ++it;
+                    isNum=!userInput.empty() && it == userInput.end();
+                 }
+            }
+            else
+                price=stoi(userInput);
+
 
             cout<<"Is the item (1) for sale? or (2) wanted? ";
             cin>>userInput;
@@ -86,9 +106,17 @@ int main(int argc,char* argv[])
             bool isForSale;
             if(userInput=="1")
                 isForSale=true;
-            else
+            else if(userInput=="2")
                 isForSale=false;
-
+            else
+            {
+                while(userInput != "1" && userInput != "2" )
+                {
+                cout<<"Please enter (1) or (2).";
+                cin>>userInput;
+                cout<<endl;
+                }
+            }
             cout<<"Where is the item located?";
             cin>>userInput;
             cout<<endl;
@@ -108,7 +136,29 @@ int main(int argc,char* argv[])
             cout<<"Please enter the price of the item: ";
             cin>>userInput;
             cout<<endl;
-            int price=stoi(userInput);
+
+            int price=0;
+            std::string::const_iterator it = userInput.begin();
+            while (it != userInput.end() && std::isdigit(*it)) ++it;
+            bool isNum=!userInput.empty() && it == userInput.end();
+            if(!isNum)
+            {
+                 while(!isNum)
+                 {
+                    cout<<"Please enter the price of the item as a number: ";
+                    cin>>userInput;
+                    cout<<endl;
+
+                    std::string::const_iterator it = userInput.begin();
+                    while (it != userInput.end() && std::isdigit(*it)) ++it;
+                    isNum=!userInput.empty() && it == userInput.end();
+                 }
+            }
+            else
+                price=stoi(userInput);
+
+
+
 
             cout<<"Was the item (1) for sale? or (2) wanted? ";
             cin>>userInput;
@@ -117,10 +167,22 @@ int main(int argc,char* argv[])
             bool isForSale;
             if(userInput=="1")
                 isForSale=true;
-            else
+            else if(userInput=="2")
                 isForSale=false;
-            table.deleteItem(name,price,isForSale);
+            else
+            {
+                while(userInput != "1" && userInput != "2" )
+                {
+                cout<<"Please enter (1) or (2).";
+                cin>>userInput;
+                cout<<endl;
+                }
+            }
+
+           if(table.deleteItem(name,price,isForSale))
             cout<<"Item Deleted"<<endl;
+            else
+                cout<<"Item not found."<<endl;
         }
 
     }
